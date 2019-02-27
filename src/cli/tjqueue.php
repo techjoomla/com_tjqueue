@@ -72,7 +72,7 @@ class TJQueue extends JApplicationCli
 		$i = 0;
 
 		// If second parameter value is integer and greater than 0 otherwise set default limit to 50;
-		$limit = (is_numeric($this->config[2]) && $this->config[2] > 0) ? $this->config[2] : 5;
+		$limit = (is_numeric($this->config[2]) && $this->config[2] > 0) ? $this->config[2] : 50;
 
 		while ($i++ < $limit)
 		{

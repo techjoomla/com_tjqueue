@@ -46,7 +46,7 @@ class Pkg_TjqueueInstallerScript
 
 		foreach ($this->files as $file)
 		{
-			JFolder::copy($src . '/'. $file['src'], JPATH_SITE . '/' . $file['dest'], '', true);
+			JFolder::copy($src . '/' . $file['src'], JPATH_SITE . '/' . $file['dest'], '', true);
 		}
 	}
 
