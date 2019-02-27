@@ -29,12 +29,6 @@ class PlgTjqueueEmail
 	 */
 	public function consume($message)
 	{
-		/*
-		 * Plugin code goes here.
-		 * You can access database and application objects and parameters via $this->db,
-		 * $this->app and $this->params respectively
-		 */
-
 		$content = json_decode($message->getBody());
 
 		// Send email

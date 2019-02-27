@@ -27,7 +27,6 @@ class Pkg_TjqueueInstallerScript
 	public function __construct()
 	{
 		$tjqueue = new stdClass;
-		$tjqueue->file = '';
 
 		// Add the files in array which to deploy at specific location
 		$this->files = array(

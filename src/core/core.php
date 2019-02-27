@@ -20,7 +20,6 @@ class PlgTjqueueCore extends JPlugin
 {
 	/**
 	 * Load the language file on instantiation. Note this is only available in Joomla 3.1 and higher.
-	 * If you want to support 3.0 series you must override the constructor
 	 *
 	 * @var    boolean
 	 * @since  3.1
@@ -32,12 +31,6 @@ class PlgTjqueueCore extends JPlugin
 	 */
 	public function __construct()
 	{
-		/*
-		 * Plugin code goes here.
-		 * You can access database and application objects and parameters via $this->db,
-		 * $this->app and $this->params respectively
-		 */
-
 		return true;
 	}
 }
