@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension type="package" version="3.0" method="upgrade">
+	<name>TJQueue Package</name>
+	<author>Techjoomla</author>
+	<authorEmail>extensions@techjoomla.com</authorEmail>
+	<authorUrl>https://techjoomla.com</authorUrl>
+	<copyright>Copyright (C) 2009 - 2019 Techjoomla. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<creationDate>27th Feb 2019</creationDate>
+	<version>0.0.1</version>
+	<packagename>tjqueue</packagename>
+	<packager>Techjoomla Team</packager>
+	<description>TJQueue package</description>
+	<files>
+		<file type="component" id="com_tjqueue" >com_tjqueue.zip</file>
+		<file type="plugin" id="core" group="tjqueue">core.zip</file>
+	</files>
+	<scriptfile>pkg_script.php</scriptfile>
+	<updateservers>
+		<server type="collection" priority="1" name="TJQueue"><![CDATA[https://techjoomla.com/updates/packages/all?dummy=tjqueue.xml]]></server>
+	</updateservers>
+</extension>

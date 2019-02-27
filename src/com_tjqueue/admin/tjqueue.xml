@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.0" method="upgrade">
+	<name>com_tjqueue</name>
+	<author>Techjoomla</author>
+	<authorEmail>extensions@techjoomla.com</authorEmail>
+	<authorUrl>https://techjoomla.com</authorUrl>
+	<copyright>Copyright (c) 2009-2019 Techjoomla. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<creationDate>20th Feb 2019</creationDate>
+	<version>0.0.1</version>
+	<description>TJQueue component- This extension will provide facility to queue data and process queue as per priority.</description>
+
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+		</schemas>
+	</update>
+
+	<files folder="site">
+		<filename>index.html</filename>
+		<filename>tjqueue.php</filename>
+	</files>
+
+	<administration>
+		<menu link='index.php?option=com_tjqueue'>TJQueue</menu>
+		<files folder="admin">
+			<filename>index.html</filename>
+			<filename>tjqueue.php</filename>
+			<folder>sql</folder>
+		</files>
+	</administration>
+</extension>

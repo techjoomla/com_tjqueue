@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="tjqueue" method="upgrade">
+	<name>plg_tjqueue_core</name>
+	<author>Techjoomla</author>
+	<creationDate>21st Feb 2019</creationDate>
+	<copyright>Copyright (C) 2016 - 2019 Techjoomla. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>extensions@techjoomla.com</authorEmail>
+	<authorUrl>https://techjoomla.com</authorUrl>
+	<version>0.0.1</version>
+	<description>PLG_TJQUEUE_CORE_XML_DESCRIPTION</description>
+
+  <files>
+		<filename plugin="core">core.php</filename>
+		<filename>index.html</filename>
+    <folder>consumers</folder>
+	</files>
+	
+	<languages folder="languages">
+		<language tag="en-GB">en-GB/en-GB.plg_tjqueue_core.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_tjqueue_core.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+			</fieldset>
+		</fields>
+	</config>
+</extension>

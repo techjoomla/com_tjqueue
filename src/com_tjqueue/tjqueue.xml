@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.0" method="upgrade">
+	<name>com_tjqueue</name>
+	<author>Techjoomla</author>
+	<authorEmail>extensions@techjoomla.com</authorEmail>
+	<authorUrl>https://techjoomla.com</authorUrl>
+	<copyright>Copyright (c) 2009-2019 Techjoomla. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<creationDate>20th Feb 2019</creationDate>
+	<version>0.0.1</version>
+	<description>TJQueue component- This extension will provide facility to queue data and process queue as per priority.</description>
+
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+		</schemas>
+	</update>
+
+	<files folder="site">
+		<filename>index.html</filename>
+		<filename>tjqueue.php</filename>
+	</files>
+	<languages folder="site/languages">
+		<language tag="en-GB">/en-GB/en-GB.com_tjqueue.ini</language>
+	</languages>
+	<administration>
+		<menu link='index.php?option=com_tjqueue'>TJQueue</menu>
+		<files folder="admin">
+			<filename>config.xml</filename>
+			<filename>controller.php</filename>
+			<filename>index.html</filename>
+			<filename>tjqueue.php</filename>
+			<filename>tjqueue.xml</filename>
+			<folder>models</folder>
+			<folder>sql</folder>
+			<folder>views</folder>
+		</files>
+		<languages folder="admin/languages">
+			<language tag="en-GB">/en-GB/en-GB.com_tjqueue.ini</language>
+			<language tag="en-GB">/en-GB/en-GB.com_tjqueue.sys.ini</language>
+		</languages>
+	</administration>
+	<media destination="tjqueue" folder="media">
+		<folder>lib</folder>
+		<file>index.html</file>
+		<file>tjqueueconsume.php</file>
+		<file>tjqueueproduce.php</file>
+	</media>
+	<cli destination="cli" folder="cli">
+		<file>index.html</file>
+		<file>tjqueue.php</file>
+	</cli>
+</extension>
