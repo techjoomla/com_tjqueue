@@ -110,20 +110,7 @@ class TjqueueCoreEmail
 
 				if ($content->email_status == 1)
 				{
-					$status = $mailer->send();
-
-					if ($status)
-					{
-						$return['success'] = 1;
-						$return['message'] = 'Email Sent successfully';
-					}
-					else
-					{
-						$return['success'] = 0;
-						$return['message'] = 'Failed to send email';
-					}
-
-					return $return;
+					return $status = $mailer->send();
 				}
 			}
 			else
