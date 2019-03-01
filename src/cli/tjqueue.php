@@ -121,7 +121,7 @@ class TJQueue extends JApplicationCli
 				require_once $filePath;
 
 				// Prepare class Name
-				$className = 'plgTjqueue' . ucfirst($class);
+				$className = 'plgTjqueue' . ucfirst($plugin) . ucfirst($class);
 
 				if (!class_exists($className))
 				{
