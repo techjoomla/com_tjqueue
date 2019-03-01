@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  Tjqueue
  * @since       1.0
  */
-class PlgTjqueueEmail
+class TjqueueCoreEmail
 {
 	/**
 	 * Plugin method with the same name as the event will be called automatically.

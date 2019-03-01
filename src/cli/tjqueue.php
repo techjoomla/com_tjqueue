@@ -43,6 +43,8 @@ jimport('tjqueue.tjqueueconsume', JPATH_SITE . '/media');
  */
 class TJQueue extends JApplicationCli
 {
+	private $message = null;
+
 	/**
 	 * Method to execute script
 	 *
@@ -52,17 +54,17 @@ class TJQueue extends JApplicationCli
 	 */
 	public function execute()
 	{
-		$this->out('Started: Running queue cron');
+		$log['success'] = 1;
+		$log['message'] = 'Started: Running queue cron';
+		self::writeLog($log);
 
 		// If topic name not set in first argument
 		if (!isset($this->config[1]))
 		{
-			$this->out('Error 404- Topic name not found to process. Please add the topic name in cron parameter');
+			$log['success'] = 0;
+			$log['message'] = 'Error-Topic name not found to process.';
 
-			$result['success'] = 0;
-			$result['message'] = 'Error 404- Topic name not found to process. Please add the topic name in cron parameter';
-
-			self::writeLog($result, null, null);
+			self::writeLog($log);
 			exit;
 		}
 
@@ -76,25 +78,23 @@ class TJQueue extends JApplicationCli
 
 		while ($i++ < $limit)
 		{
-			$message = $TJQueueConsume->receive();
+			$this->message = $TJQueueConsume->receive();
 
-			if ($message == null)
+			if ($this->message == null)
 			{
-				$this->out('Done: No message available in queue to process');
-				$result['success'] = 1;
-				$result['message'] = 'Done: No message available in queue to process';
-				self::writeLog($result, null, null);
+				$log['success'] = 1;
+				$log['message'] = 'Done: No message available in queue to process';
+				self::writeLog($log);
 				exit;
 			}
 
-			$client  = $message->getProperty('client');
+			$client  = $this->message->getProperty('client');
 
 			if (empty($client))
 			{
-				$this->out('Invalid client');
-				$result['success'] = 0;
-				$result['message'] = 'Error- Invalid client- client value should not be blank';
-				self::writeLog($result, null, null);
+				$log['success'] = 0;
+				$log['message'] = 'Error- Invalid client- client value should not be blank';
+				self::writeLog($log);
 				continue;
 			}
 
@@ -110,11 +110,9 @@ class TJQueue extends JApplicationCli
 
 			if (!file_exists($filePath))
 			{
-				$this->out("Error 404: Consumer class file doesn't exist:" . $filePath);
-
-				$result['success'] = 0;
-				$result['message'] = "Error 404- Consumer class file doesn't exist:" . $filePath;
-				self::writeLog($result, $client, $topic);
+				$log['success'] = 0;
+				$log['message'] = "Error 404- Consumer class file doesn't exist:" . $filePath;
+				self::writeLog($log);
 				continue;
 			}
 
@@ -124,17 +122,38 @@ class TJQueue extends JApplicationCli
 
 				// Prepare class Name
 				$className = 'plgTjqueue' . ucfirst($class);
-				$obj       = new $className;
-				$result    = $obj->consume($message);
 
+				if (!class_exists($className))
+				{
+					$log['success'] = 0;
+					$log['message'] = $className . ' class not found';
+					self::writeLog($log);
+
+					continue;
+				}
+
+				$obj    = new $className;
+				$result = $obj->consume($this->message);
 				$TJQueueConsume->acknowledge($result);
-				self::writeLog($result, $client, $topic);
+
+				if ($result)
+				{
+					$log['success'] = 1;
+					$log['message'] = 'Message consumed successfully';
+				}
+				else
+				{
+					$log['success'] = 0;
+					$log['message'] = 'Message consumption failed';
+				}
+
+				self::writeLog($log);
 			}
 			catch (Exception $e)
 			{
-				$result['success'] = 0;
-				$result['message'] = $e->getMessage();
-				self::writeLog($result, $client, $topic);
+				$log['success'] = 0;
+				$log['message'] = $e->getMessage();
+				self::writeLog($log);
 			}
 		}
 	}
@@ -142,28 +161,57 @@ class TJQueue extends JApplicationCli
 	/**
 	 * Plugin method with the same name as the event will be called automatically.
 	 *
-	 * @param   array  $data    Result data
-	 * @param   array  $client  Consumer client
-	 * @param   array  $topic   Queue topic name
+	 * @param   array  $data  Result data
 	 *
 	 * @return  array.
 	 *
 	 * @since 0.0.1
 	 */
-	public function writeLog($data, $client, $topic)
+	public function writeLog($data)
 	{
-		$log  = ($data['success'] == 1 ? 'success - ' . $data['message'] : 'failed - ' . $data['message']) . " | " . $topic . " | " . $client;
+		$topic  = $this->config[1];
+		$client = $this->message ? $this->message->getProperty('client') : null;
+		$messageId = $this->message ? $this->message->getMessageId() : null;
+
+		$this->out($data['message']);
+
+		// Add to log
+		$logFields = [
+			"messageId" => $messageId,
+			"message" => $data['message'],
+			"topic" => $topic,
+			"client" => $client
+		];
+
+		// Convert logFields to string implode by pipe(|)
+		$logMessage = implode(' | ', array_map(
+				function ($v, $k)
+				{
+					if (is_array($v))
+					{
+						return $k . '[]: ' . implode('&' . $k . '[]: ', $v);
+					}
+					else
+					{
+						return $k . ': ' . $v;
+					}
+				},
+				$logFields,
+				array_keys($logFields)
+			)
+		);
 
 		Log::addLogger(
 			array (
 			'text_file'         => 'tjqueue_log_' . date("j.n.Y") . '.log.php',
-			'text_entry_format' => '{DATETIME} | {MESSAGE}'
+			'text_entry_format' => '{DATETIME} | {PRIORITY} | {MESSAGE}'
 			),
 			Log::ALL,
 			array($category = 'tjlogs')
 		);
 
-		Log::add($log, $priority = 'JLog::MINOR', $category = 'tjlogs');
+		$priority = $data['success'] == 1 ? JLog::INFO : JLog::ERROR;
+		Log::add($logMessage, $priority, $category = 'tjlogs');
 	}
 }
 
