@@ -45,6 +45,36 @@ class TJQueue extends JApplicationCli
 {
 	private $message = null;
 
+	private $options;
+
+	/**
+	 * Class  constructor.
+	 *
+	 * @since   0.0.1
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+
+		$shortopts  = "";
+
+		// Support topic with option -t value
+		$shortopts . = "t:";
+
+		// Support limit with option -n value
+		$shortopts . = "n:";
+
+		$longopts  = array(
+			"topic:", // Long option to read topic  --topic="value"
+			"n:"      // Long option to read count  --n="value"
+		);
+
+		$argv                 = getopt($shortopts, $longopts);
+		$this->options        = new stdClass;
+		$this->options->topic = array_key_exists('t', $argv) ? $argv['t'] : (array_key_exists('topic', $argv) ?  $argv['topic'] : null);
+		$this->options->limit = array_key_exists('n', $argv) ? $argv['n'] : 50;
+	}
+
 	/**
 	 * Method to execute script
 	 *
@@ -59,7 +89,7 @@ class TJQueue extends JApplicationCli
 		self::writeLog($log);
 
 		// If topic name not set in first argument
-		if (!isset($this->config[1]))
+		if (!$this->options->topic)
 		{
 			$log['success'] = 0;
 			$log['message'] = 'Error-Topic name not found to process.';
@@ -68,15 +98,11 @@ class TJQueue extends JApplicationCli
 			exit;
 		}
 
-		$topic = $this->config[1];
-		$TJQueueConsume = new TJQueueConsume($topic);
+		$TJQueueConsume = new TJQueueConsume($this->options->topic);
 
 		$i = 0;
 
-		// If second parameter value is integer and greater than 0 otherwise set default limit to 50;
-		$limit = (is_numeric($this->config[2]) && $this->config[2] > 0) ? $this->config[2] : 50;
-
-		while ($i++ < $limit)
+		while ($i++ < $this->options->limit)
 		{
 			$this->message = $TJQueueConsume->receive();
 
@@ -121,7 +147,7 @@ class TJQueue extends JApplicationCli
 				require_once $filePath;
 
 				// Prepare class Name
-				$className = 'plgTjqueue' . ucfirst($plugin) . ucfirst($class);
+				$className = 'Tjqueue' . ucfirst($plugin) . ucfirst($class);
 
 				if (!class_exists($className))
 				{
@@ -169,7 +195,6 @@ class TJQueue extends JApplicationCli
 	 */
 	public function writeLog($data)
 	{
-		$topic  = $this->config[1];
 		$client = $this->message ? $this->message->getProperty('client') : null;
 		$messageId = $this->message ? $this->message->getMessageId() : null;
 
@@ -179,7 +204,7 @@ class TJQueue extends JApplicationCli
 		$logFields = [
 			"messageId" => $messageId,
 			"message" => $data['message'],
-			"topic" => $topic,
+			"topic" => $this->options->topic,
 			"client" => $client
 		];
 
