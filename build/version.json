@@ -1,0 +1,11 @@
+{
+    "tjqueue": {
+        "0.0.1": {
+            "com_tjqueue": {
+                "version": "0.0.1",
+                "repoUrl": "https://github.com/ahghatol/com_tjqueue.git",
+                "branch": "master"
+            }
+        }
+    }
+}
