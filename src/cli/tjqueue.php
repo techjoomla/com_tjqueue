@@ -59,10 +59,10 @@ class TJQueue extends JApplicationCli
 		$shortopts  = "";
 
 		// Support topic with option -t value
-		$shortopts . = "t:";
+		$shortopts .= "t:";
 
 		// Support limit with option -n value
-		$shortopts . = "n:";
+		$shortopts .= "n:";
 
 		$longopts  = array(
 			"topic:", // Long option to read topic  --topic="value"
