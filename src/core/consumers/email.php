@@ -74,16 +74,16 @@ class TjqueueCoreEmail
 				// If you would like to send String Attachment in email
 				if (isset($content->stringAttachment))
 				{
-					$stringAttachment = array();
-					$stringAttachment = $content->stringAttachment;
-					$encoding         = isset($stringAttachment['encoding']) ? $stringAttachment['encoding'] : '';
-					$type             = isset($stringAttachment['type']) ? $stringAttachment['type'] : '';
 
-					if (isset($stringAttachment['content']) && isset($stringAttachment['name']))
+					$stringAttachment = $content->stringAttachment;
+					$encoding         = isset($stringAttachment->encoding) ? $stringAttachment->encoding : '';
+					$type             = isset($stringAttachment->type) ? $stringAttachment->type : '';
+	
+					if (isset($stringAttachment->content) && isset($stringAttachment->name))
 					{
 						$mailer->addStringAttachment(
-										$stringAttachment['content'],
-										$stringAttachment['name'],
+										$stringAttachment->content,
+										$stringAttachment->name,
 										$encoding,
 										$type
 									);
