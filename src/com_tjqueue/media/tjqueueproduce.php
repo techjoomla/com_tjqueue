@@ -46,7 +46,7 @@ class TJQueueProduce
 	 */
 	public function __construct()
 	{
-		$file = JPATH_SITE . '/media/tjqueue/lib/vendor/autoload.php';
+		$file = JPATH_SITE . '/media/tjqueue/libs/vendor/autoload.php';
 
 		if (file_exists($file))
 		{

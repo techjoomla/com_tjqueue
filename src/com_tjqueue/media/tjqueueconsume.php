@@ -52,7 +52,7 @@ class TJQueueConsume
 	public function __construct($topic)
 	{
 		$this->topic = $topic;
-		$file = JPATH_SITE . '/media/tjqueue/lib/vendor/autoload.php';
+		$file = JPATH_SITE . '/media/tjqueue/libs/vendor/autoload.php';
 
 		if (file_exists($file))
 		{
