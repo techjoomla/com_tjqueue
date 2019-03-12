@@ -41,7 +41,7 @@
 		</languages>
 	</administration>
 	<media destination="tjqueue" folder="media">
-		<folder>lib</folder>
+		<folder>libs</folder>
 		<file>index.html</file>
 		<file>tjqueueconsume.php</file>
 		<file>tjqueueproduce.php</file>
