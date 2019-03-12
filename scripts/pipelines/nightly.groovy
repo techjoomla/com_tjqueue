@@ -14,7 +14,7 @@ pipeline {
                     // Cleanup previous stuff
                     def cleanUpList =["tjqueue-scm","builds","com_tjqueue",".git",".gitlab/merge_request_templates","build","scripts", ".gitignore","sqs","dbal"] as String[]
                     for (item in cleanUpList) {
-                       sh("cd builds/com_tjqueue/media/libs/vendor/aws/aws-sdk-php/src && rm -rf "+item);
+                       sh("rm -rf "+item);
                     }
 
                     // Make directories needed to generate build
