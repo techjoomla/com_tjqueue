@@ -7,12 +7,12 @@
                 "branch": "master"
             },
             "dbal":{
-                "version": "0.9.8",
+                "version": "0.0.1",
                 "repoUrl": "https://github.com/php-enqueue/dbal.git",
                 "branch": "0.9.8"
             },
             "sqs":{
-                "version": "0.9.8",
+                "version": "0.0.1",
                 "repoUrl": "https://github.com/php-enqueue/sqs.git",
                 "branch": "0.9.8"
             }
