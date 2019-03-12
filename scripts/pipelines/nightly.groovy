@@ -43,7 +43,7 @@ pipeline {
                     // @TODO - move this to json itself?
                     def subextensions = ['com_tjqueue']
 
-                    def props = readJSON text: '{}' // Add JSON here or specify file below
+                    //def props = readJSON text: '{}' // Add JSON here or specify file below
                     def props = readJSON file: 'tjqueue-scm/build/version.json'
 
                     subextensions.eachWithIndex { item, index ->
