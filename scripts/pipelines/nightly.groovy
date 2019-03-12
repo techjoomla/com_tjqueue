@@ -42,18 +42,12 @@ pipeline {
                     // Define subextensions array having unique git repos
                     // @TODO - move this to json itself?
                     def subextensions = ['com_tjqueue','dbal','sqs']
-
-                    //def props = readJSON text: '{}' // Add JSON here or specify file below
                     def props = readJSON file: 'tjqueue-scm/build/version.json'
 
                     subextensions.eachWithIndex { item, index ->
                        // Do clone all subextensions repos by checking out corresponding release branch
                        sh("git clone --branch " + props['tjqueue'][tjqueueVersion][item]['branch'] + " --depth 1 " + props['tjqueue'][tjqueueVersion][item]['repoUrl'])
                     }
-
-                    //sh("git clone --branch master --depth 1 https://github.com/ahghatol/com_tjqueue.git")
-                    //sh("git clone --branch 0.9.8 --depth 1 https://github.com/php-enqueue/dbal.git")
-                    //sh("git clone --branch 0.9.8 --depth 1 https://github.com/php-enqueue/sqs.git")
                 }
             }
         }
