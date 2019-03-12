@@ -41,7 +41,7 @@ pipeline {
                 script {
                     // Define subextensions array having unique git repos
                     // @TODO - move this to json itself?
-                    def subextensions = ['com_tjqueue']
+                    def subextensions = ['com_tjqueue','dbal','sqs']
 
                     //def props = readJSON text: '{}' // Add JSON here or specify file below
                     def props = readJSON file: 'tjqueue-scm/build/version.json'
