@@ -18,9 +18,12 @@ use Enqueue\Sqs\SqsConnectionFactory;
 // Joomla component helper to get params
 use Joomla\CMS\Component\ComponentHelper;
 
+use Media\TJQueue\Helpers\TJQueueContext;
+
 defined('JPATH_PLATFORM') or die;
 jimport('joomla.filesystem.folder');
 jimport('joomla.application.component.helper');
+jimport('tjqueue.helpers.tjqueuecontext', JPATH_SITE . '/media');
 
 /**
  * TJQueue handler
@@ -29,10 +32,8 @@ jimport('joomla.application.component.helper');
  * @subpackage  TJQueue
  * @since       1.0
  */
-class TJQueueProduce
+class TJQueueProduce extends TJQueueContext
 {
-	private $jconfig;
-
 	private $context;
 
 	private $params;
@@ -46,6 +47,8 @@ class TJQueueProduce
 	 */
 	public function __construct()
 	{
+		parent::__construct();
+
 		$file = JPATH_SITE . '/media/tjqueue/libs/vendor/autoload.php';
 
 		if (file_exists($file))
@@ -58,7 +61,6 @@ class TJQueueProduce
 		}
 
 		$this->params  = ComponentHelper::getParams('com_tjqueue');
-		$this->jconfig = \JFactory::getConfig();
 		$transport     = $this->params->get('transport');
 
 		switch ($transport)
@@ -82,15 +84,8 @@ class TJQueueProduce
 	 */
 	private function awsSqs()
 	{
-		$config = [
-			'key' => $this->params->get("aws_key"),
-			'secret' => $this->params->get("aws_secret"),
-			'region' => $this->params->get("aws_region"),
-		];
-
-		$factory = new SqsConnectionFactory($config);
-		$this->context = $factory->createContext();
-		$this->queue = $this->context->createQueue($this->params->get("topic"));
+		$this->context = $this->getSqsContext();
+		$this->queue   = $this->context->createQueue($this->params->get("topic"));
 		$this->message = $this->context->createMessage();
 		$this->context->declareQueue($this->queue);
 	}
@@ -104,26 +99,9 @@ class TJQueueProduce
 	 */
 	private function doctrineDbal()
 	{
-		$user     = $this->jconfig->get("user");
-		$password = $this->jconfig->get("password");
-		$host     = $this->jconfig->get("host");
-		$db       = $this->jconfig->get("db");
-		$url      = "mysql://" . $user . ":" . $password . "@" . $host . "/" . $db;
-
-		$config = [
-			'connection' => [
-				'url' => $url,
-				'driver' => 'pdo_mysql',
-			],
-		];
-
-		$factory = new DbalConnectionFactory($config);
-		$this->context = $factory->createContext();
-
-		// @Todo set table name
-		// $dbprefix = $this->jconfig->get("dbprefix");
+		$this->context = $this->getDbalContext();
 		$this->context->createDataBaseTable();
-		$this->queue = $this->context->createTopic($this->params->get('topic'));
+		$this->queue   = $this->context->createTopic($this->params->get('topic'));
 		$this->message = $this->context->createMessage();
 	}
 

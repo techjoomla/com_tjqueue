@@ -19,9 +19,12 @@ use Enqueue\Sqs\SqsConnectionFactory;
 // Joomla component helper to get params
 use Joomla\CMS\Component\ComponentHelper;
 
+use Media\TJQueue\Helpers\TJQueueContext;
+
 defined('JPATH_PLATFORM') or die;
 jimport('joomla.filesystem.folder');
 jimport('joomla.application.component.helper');
+jimport('tjqueue.helpers.tjqueuecontext', JPATH_SITE . '/media');
 
 /**
  * TJQueue handler
@@ -30,10 +33,8 @@ jimport('joomla.application.component.helper');
  * @subpackage  TJQueue
  * @since       1.0
  */
-class TJQueueConsume
+class TJQueueConsume extends TJQueueContext
 {
-	private $jconfig;
-
 	private $params;
 
 	private $consumer;
@@ -51,8 +52,9 @@ class TJQueueConsume
 	 */
 	public function __construct($topic)
 	{
+		parent::__construct();
 		$this->topic = $topic;
-		$file = JPATH_SITE . '/media/tjqueue/libs/vendor/autoload.php';
+		$file        = JPATH_SITE . '/media/tjqueue/libs/vendor/autoload.php';
 
 		if (file_exists($file))
 		{
@@ -63,9 +65,8 @@ class TJQueueConsume
 			throw new \LogicException('Composer autoload was not found');
 		}
 
-		$this->params  = ComponentHelper::getParams('com_tjqueue');
-		$this->jconfig = \JFactory::getConfig();
-		$transport     = $this->params->get('transport');
+		$this->params = ComponentHelper::getParams('com_tjqueue');
+		$transport    = $this->params->get('transport');
 
 		switch ($transport)
 		{
@@ -88,14 +89,7 @@ class TJQueueConsume
 	 */
 	private function awsSqs()
 	{
-		$config = [
-			'key' => $this->params->get("aws_key"),
-			'secret' => $this->params->get("aws_secret"),
-			'region' => $this->params->get("aws_region"),
-		];
-
-		$factory        = new SqsConnectionFactory($config);
-		$context        = $factory->createContext();
+		$context        = $this->getSqsContext();
 		$queue          = $context->createQueue($this->topic);
 		$this->consumer = $context->createConsumer($queue);
 	}
@@ -109,23 +103,8 @@ class TJQueueConsume
 	 */
 	private function doctrineDbal()
 	{
-		$user     = $this->jconfig->get("user");
-		$password = $this->jconfig->get("password");
-		$host     = $this->jconfig->get("host");
-		$db       = $this->jconfig->get("db");
-		$url      = "mysql://" . $user . ":" . $password . "@" . $host . "/" . $db;
-
-		$config = [
-			'connection' => [
-				'url' => $url,
-				'driver' => 'pdo_mysql',
-			],
-		];
-
-		$factory = new DbalConnectionFactory($config);
-		$context = $factory->createContext();
+		$context = $this->getDbalContext();
 		$context->createDataBaseTable();
-
 		$queue          = $context->createTopic($this->topic);
 		$this->consumer = $context->createConsumer($queue);
 	}
@@ -139,7 +118,7 @@ class TJQueueConsume
 	 */
 	public function receive()
 	{
-		$this->message = $this->consumer->receive(20000);
+		$this->message = $this->consumer->receive();
 
 		return $this->message;
 	}
