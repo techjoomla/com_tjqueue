@@ -86,6 +86,7 @@ class TJQueueContext
 				'url' => $url,
 				'driver' => 'pdo_mysql',
 			],
+			'table_name' => $this->jconfig->get("dbprefix") . "enqueue",
 		];
 
 		$factory = new DbalConnectionFactory($config);
