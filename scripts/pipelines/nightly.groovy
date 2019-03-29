@@ -110,8 +110,13 @@ pipeline {
                     dir('builds') {
                         sh('zip -rq com_tjqueue.zip com_tjqueue')
                         sh('rm -rf com_tjqueue')
-                        sh('zip -rq core.zip core')
-                        sh('rm -rf core')
+                        
+                        sh('zip -rq core.zip plugins/tjqueue/core')
+                        //sh('rm -rf plugins/tjqueue/core')
+
+                        sh('zip -rq cli.zip cli')
+                        sh('rm -rf cli')
+
                         sh('zip -rq --exclude=com_tjqueue ../pkg_tjqueue_v' + tjqueueVersion + '_' + shortGitCommit + '.zip .')
                     }
                 }
