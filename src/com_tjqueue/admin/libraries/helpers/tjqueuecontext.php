@@ -7,7 +7,7 @@
  * @license     GNU General Public License version 2 or later.
  */
 
-namespace Media\TJQueue\Helpers;
+namespace TJQueue\Admin\Helpers;
 
 // Joomla component helper to get params
 use Joomla\CMS\Component\ComponentHelper;

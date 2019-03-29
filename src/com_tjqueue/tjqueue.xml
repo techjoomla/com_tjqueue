@@ -30,20 +30,14 @@
 			<filename>controller.php</filename>
 			<filename>index.html</filename>
 			<filename>tjqueue.php</filename>
-			<filename>tjqueue.xml</filename>
 			<folder>models</folder>
 			<folder>sql</folder>
 			<folder>views</folder>
+			<folder>libraries</folder>
 		</files>
 		<languages folder="admin/languages">
 			<language tag="en-GB">/en-GB/en-GB.com_tjqueue.ini</language>
 			<language tag="en-GB">/en-GB/en-GB.com_tjqueue.sys.ini</language>
 		</languages>
 	</administration>
-	<media destination="tjqueue" folder="media">
-		<folder>libs</folder>
-		<file>index.html</file>
-		<file>tjqueueconsume.php</file>
-		<file>tjqueueproduce.php</file>
-	</media>
 </extension>

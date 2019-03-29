@@ -7,7 +7,7 @@
  * @license     GNU General Public License version 2 or later.
  */
 
-namespace Media\TJQueue;
+namespace TJQueue\Admin;
 
 // Doctrine
 use Enqueue\Dbal\DbalConnectionFactory;
@@ -19,12 +19,12 @@ use Enqueue\Sqs\SqsConnectionFactory;
 // Joomla component helper to get params
 use Joomla\CMS\Component\ComponentHelper;
 
-use Media\TJQueue\Helpers\TJQueueContext;
+use TJQueue\Admin\Helpers\TJQueueContext;
 
 defined('JPATH_PLATFORM') or die;
 jimport('joomla.filesystem.folder');
 jimport('joomla.application.component.helper');
-jimport('tjqueue.helpers.tjqueuecontext', JPATH_SITE . '/media');
+jimport('helpers.tjqueuecontext', JPATH_SITE . '/administrator/components/com_tjqueue/libraries');
 
 /**
  * TJQueue handler
@@ -54,7 +54,7 @@ class TJQueueConsume extends TJQueueContext
 	{
 		parent::__construct();
 		$this->topic = $topic;
-		$file        = JPATH_SITE . '/media/tjqueue/libs/vendor/autoload.php';
+		$file        = JPATH_SITE . '/administrator/components/com_tjqueue/libraries/libs/vendor/autoload.php';
 
 		if (file_exists($file))
 		{

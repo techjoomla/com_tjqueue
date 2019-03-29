@@ -6,7 +6,7 @@
  * @license    GNU General Public License version 2 or later.
  */
 
-use Media\TJQueue\TJQueueConsume;
+use TJQueue\Admin\TJQueueConsume;
 use Joomla\CMS\Log\Log;
 
 define('_JEXEC', 1);
@@ -32,7 +32,7 @@ require_once JPATH_LIBRARIES . '/cms.php';
 // Load the configuration
 require_once JPATH_CONFIGURATION . '/configuration.php';
 
-jimport('tjqueue.tjqueueconsume', JPATH_SITE . '/media');
+jimport('tjqueueconsume', JPATH_SITE . '/administrator/components/com_tjqueue/libraries');
 
 /**
  * TjQueue
