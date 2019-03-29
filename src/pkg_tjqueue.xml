@@ -13,7 +13,8 @@
 	<description>TJQueue package</description>
 	<files>
 		<file type="component" id="com_tjqueue" >com_tjqueue.zip</file>
-		<file type="plugin" id="core" group="tjqueue">core.zip</file>
+		<file type="plugin" id="core" group="tjqueue">plugins/tjqueue/core.zip</file>
+		<file type="file" id="tjqueue">cli.zip</file>
 	</files>
 	<scriptfile>pkg_script.php</scriptfile>
 	<updateservers>

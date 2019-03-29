@@ -46,8 +46,4 @@
 		<file>tjqueueconsume.php</file>
 		<file>tjqueueproduce.php</file>
 	</media>
-	<cli destination="cli" folder="cli">
-		<file>index.html</file>
-		<file>tjqueue.php</file>
-	</cli>
 </extension>

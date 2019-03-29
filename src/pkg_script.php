@@ -19,34 +19,11 @@ jimport('joomla.filesystem.file');
  */
 class Pkg_TjqueueInstallerScript
 {
-	private $files = [];
-
 	/**
 	 * Plugin method with the same name as the event will be called automatically.
 	 */
 	public function __construct()
 	{
-		$tjqueue = new stdClass;
-
-		// Add the files in array which to deploy at specific location
-		$this->files = array(
-				array("src" => 'cli', "dest" => 'cli' )
-		);
-	}
-
-	/**
-	 * Deploy files
-	 *
-	 * @return void
-	 */
-	private function deployFiles($parent)
-	{
-		$src = $parent->getParent()->getPath('source');
-
-		foreach ($this->files as $file)
-		{
-			JFolder::copy($src . '/' . $file['src'], JPATH_SITE . '/' . $file['dest'], '', true);
-		}
 	}
 
 	/**
@@ -56,7 +33,5 @@ class Pkg_TjqueueInstallerScript
 	 */
 	public function postflight($type, $parent)
 	{
-		// Adds the overridden subform layouts file
-		$this->deployFiles($parent);
 	}
 }
