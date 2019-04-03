@@ -59,6 +59,8 @@ pipeline {
                     sh("cp -r com_tjqueue/src/* builds/")
                     sh("rsync -a dbal/ builds/com_tjqueue/admin/libraries/lib/")
                     sh("rsync -a sqs/ builds/com_tjqueue/admin/libraries/lib/")
+                    sh("mv builds/com_tjqueue/admin/libraries/lib/composer_files/* builds/com_tjqueue/admin/libraries/lib/")
+                    sh("rm -rf builds/com_tjqueue/admin/libraries/lib/composer_files")
                 }
             }
         }
