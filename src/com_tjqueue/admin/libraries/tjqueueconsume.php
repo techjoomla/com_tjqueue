@@ -54,7 +54,7 @@ class TJQueueConsume extends TJQueueContext
 	{
 		parent::__construct();
 		$this->topic = $topic;
-		$file        = JPATH_SITE . '/administrator/components/com_tjqueue/libraries/libs/vendor/autoload.php';
+		$file        = JPATH_SITE . '/administrator/components/com_tjqueue/libraries/lib/vendor/autoload.php';
 
 		if (file_exists($file))
 		{
