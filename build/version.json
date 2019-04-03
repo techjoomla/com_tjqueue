@@ -1,0 +1,21 @@
+{
+    "tjqueue": {
+        "0.0.1": {
+            "com_tjqueue": {
+                "version": "0.0.1",
+                "repoUrl": "https://github.com/ahghatol/com_tjqueue.git",
+                "branch": "master"
+            },
+            "dbal":{
+                "version": "0.0.1",
+                "repoUrl": "https://github.com/php-enqueue/dbal.git",
+                "branch": "0.9.8"
+            },
+            "sqs":{
+                "version": "0.0.1",
+                "repoUrl": "https://github.com/php-enqueue/sqs.git",
+                "branch": "0.9.8"
+            }
+        }
+    }
+}

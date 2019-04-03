@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension version="3.9" type="file" method="upgrade">
+	<name>TJQueue Package</name>
+	<author>Techjoomla</author>
+	<version>0.0.1</version>
+	<creationDate>27th Feb 2019</creationDate>
+	<description>TJQueue package</description>
+	<fileset>
+		<files target="cli">
+			<file>tjqueue.php</file>
+		</files>
+	</fileset>
+</extension>
