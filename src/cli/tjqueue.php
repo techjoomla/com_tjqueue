@@ -48,6 +48,8 @@ class TJQueue extends JApplicationCli
 
 	private $options;
 
+	private $params = null;
+
 	/**
 	 * Class  constructor.
 	 *
@@ -70,8 +72,8 @@ class TJQueue extends JApplicationCli
 			"n:"      // Long option to read count  --n="value"
 		);
 
-		$this->tjqueueParams = ComponentHelper::getParams('com_tjqueue');
-		$this->defaultLimit  = (int) $this->tjqueueParams->get('default_limit');
+		$this->params = ComponentHelper::getParams('com_tjqueue');
+		$this->defaultLimit  = (int) $this->params->get('default_limit');
 
 		$argv                 = getopt($shortopts, $longopts);
 		$this->options        = new stdClass;
