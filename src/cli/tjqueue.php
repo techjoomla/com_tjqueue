@@ -8,6 +8,7 @@
 
 use TJQueue\Admin\TJQueueConsume;
 use Joomla\CMS\Log\Log;
+use Joomla\CMS\Component\ComponentHelper;
 
 define('_JEXEC', 1);
 define('JPATH_BASE', dirname(__DIR__));
@@ -69,10 +70,13 @@ class TJQueue extends JApplicationCli
 			"n:"      // Long option to read count  --n="value"
 		);
 
+		$this->tjqueueParams = ComponentHelper::getParams('com_tjqueue');
+		$this->defaultLimit  = (int) $this->tjqueueParams->get('default_limit');
+
 		$argv                 = getopt($shortopts, $longopts);
 		$this->options        = new stdClass;
 		$this->options->topic = array_key_exists('t', $argv) ? $argv['t'] : (array_key_exists('topic', $argv) ?  $argv['topic'] : null);
-		$this->options->limit = array_key_exists('n', $argv) ? $argv['n'] : 50;
+		$this->options->limit = array_key_exists('n', $argv) ? $argv['n'] : $this->defaultLimit;
 	}
 
 	/**

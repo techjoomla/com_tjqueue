@@ -3,7 +3,7 @@
 	<!-- General setting  -->
 	<fieldset name="general_settings" label="COM_TJQ_GENERAL_SETTINGS" description="" addfieldpath="/media/com_tjqueue/fields" >
 		<field name="topic" type="text" default="tjqueue" label="COM_TJQ_TOPIC_NAME" description="COM_TJQ_TOPIC_NAME_DESC"/>
-		
+
 		<field name="transport" type="list" default="doctrine_dbal" label="COM_TJQ_TRANSPORT_NAME" description="COM_TJQ_TRANSPORT_NAME_DESC">
 			<option value="mysql">COM_TJQ_TRANSPORT_MYSQL</option>
 			<option value="aws_sqs">COM_TJQ_TRANSPORT_SQS</option>
@@ -12,5 +12,6 @@
 		<field name="aws_key" type="text" default="" label="COM_TJQ_AWS_KEY" />
 		<field name="aws_secret" type="text" default="" label="COM_TJQ_AWS_SECRET" />
 		<field name="aws_region" type="text" default="" label="COM_TJQ_AWS_REGION" description="COM_TJQ_AWS_REGION_DESC"/>
+		<field name="default_limit" type="text" default="50" label="COM_TJQ_DEFAULT_LIMIT" description="COM_TJQ_DEFAULT_LIMIT_DESC"/>
 	</fieldset>
 </config>
