@@ -72,13 +72,11 @@ class TJQueue extends JApplicationCli
 			"n:"      // Long option to read count  --n="value"
 		);
 
-		$this->params = ComponentHelper::getParams('com_tjqueue');
-		$this->defaultLimit  = (int) $this->params->get('default_limit');
-
+		$this->params         = ComponentHelper::getParams('com_tjqueue');
 		$argv                 = getopt($shortopts, $longopts);
 		$this->options        = new stdClass;
 		$this->options->topic = array_key_exists('t', $argv) ? $argv['t'] : (array_key_exists('topic', $argv) ?  $argv['topic'] : null);
-		$this->options->limit = array_key_exists('n', $argv) ? $argv['n'] : $this->defaultLimit;
+		$this->options->limit = array_key_exists('n', $argv) ? $argv['n'] : (int) ($this->params->get('default_limit'));
 	}
 
 	/**
