@@ -6,8 +6,8 @@
 	<authorUrl>https://techjoomla.com</authorUrl>
 	<copyright>Copyright (c) 2009-2019 Techjoomla. All rights reserved.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-	<creationDate>20th Feb 2019</creationDate>
-	<version>0.0.1</version>
+	<creationDate>30th Mar 2020</creationDate>
+	<version>1.0.2</version>
 	<description>TJQueue component- This extension will provide facility to queue data and process queue as per priority.</description>
 
 	<update>
