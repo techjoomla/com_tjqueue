@@ -2,7 +2,7 @@
 
 // Get / Set release name
 // TODO - remove hardcoded value
-def  tjqueueVersion = '0.0.1' //env.getProperty("tjqueueVersion")
+def  tjqueueVersion = '1.0.1' //env.getProperty("tjqueueVersion")
 //echo tjqueueVersion
 
 pipeline {
