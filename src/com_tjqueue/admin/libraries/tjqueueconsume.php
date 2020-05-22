@@ -55,10 +55,11 @@ class TJQueueConsume extends TJQueueContext
 	public function __construct($topic, int $timeout = 0)
 	{
 		parent::__construct();
-		$this->topic = $topic;
+		$this->topic   = $topic;
 
-		// To set the timeout for cli to close in ideal state 
-		$file        = JPATH_SITE . '/administrator/components/com_tjqueue/libraries/lib/vendor/autoload.php';
+		// To set the timeout for cli to close in ideal state
+		$this->timeout = $timeout;
+		$file          = JPATH_SITE . '/administrator/components/com_tjqueue/libraries/lib/vendor/autoload.php';
 
 		if (file_exists($file))
 		{
@@ -123,7 +124,6 @@ class TJQueueConsume extends TJQueueContext
 	public function receive()
 	{
 		$this->message = $this->consumer->receive($this->timeout);
-
 		return $this->message;
 	}
 
