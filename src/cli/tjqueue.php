@@ -77,7 +77,7 @@ class TJQueue extends JApplicationCli
 		$this->options        = new stdClass;
 		$this->options->topic = array_key_exists('t', $argv) ? $argv['t'] : (array_key_exists('topic', $argv) ?  $argv['topic'] : null);
 		$this->options->limit = array_key_exists('n', $argv) ? $argv['n'] : 50;
-		$this->options->timeout = array_key_exists('s', $argv) ? $argv['s'] : 0;
+		$this->options->timeout = array_key_exists('s', $argv) ? $argv['s'] : 2000;
 	}
 
 	/**
