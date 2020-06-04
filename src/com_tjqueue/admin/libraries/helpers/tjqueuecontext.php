@@ -79,7 +79,7 @@ class TJQueueContext
 		$password = $this->jconfig->get("password");
 		$host     = $this->jconfig->get("host");
 		$db       = $this->jconfig->get("db");
-		$url      = "mysql://" . $user . ":" . $password . "@" . $host . "/" . $db;
+		$url      = "mysql://" . $user . ":" . urlencode($password) . "@" . $host . "/" . $db;
 
 		$config = [
 			'connection' => [
