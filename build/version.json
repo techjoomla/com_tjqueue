@@ -21,7 +21,7 @@
             "com_tjqueue": {
                 "version": "1.0.1",
                 "repoUrl": "https://github.com/techjoomla/com_tjqueue.git",
-                "branch": "release-1.0.1"
+                "branch": "master"
             },
             "dbal":{
                 "version": "0.0.1",
