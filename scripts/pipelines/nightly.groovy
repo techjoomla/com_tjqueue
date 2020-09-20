@@ -110,10 +110,7 @@ pipeline {
                     dir('builds') {
                         sh('zip -rq com_tjqueue.zip com_tjqueue')
                         sh('rm -rf com_tjqueue')
-                        
-                        sh('zip -rq core.zip plugins/tjqueue/core')
-                        //sh('rm -rf plugins/tjqueue/core')
-
+                        sh('cd plugins/tjqueue/core && zip -rq core.zip * && mv core.zip ../../../ && cd ../../../ && rm -rf plugins')
                         sh('zip -rq cli.zip cli')
                         sh('rm -rf cli')
 
